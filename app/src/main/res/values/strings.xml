@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Five Factor Finder</string>
+    <string name="personality_test_description">This personality test provides insights into your personality based on the <b>Big Five model.</b> </string>
+    <string name="pleasenote_beforetest"><b>Please note:</b> This test is for educational purposes only and may not be perfectly accurate. It\'s important to consider your own experiences and self-awareness when interpreting the results.</string>
+    <string name="testrequiresdata">The test requires region and age specific parameters in order to accurately find your personality</string>
+    <string name="testcontains120qs">This test consists of 120 questions and will help you understand your personality based on the Big Five model. </string>
+    <string name="answerhonestly">Answer each question honestly and thoughtfully. </string>
+    <string name="norightorwronganswers">There are no right or wrong answers, so be truthful to get the most accurate results.</string>
+    <string name="confidential">Your responses are completely confidential. </string>
+    <string name="q1heading">Worry about things</string>
+    <string name="q1subtext">How often do you find yourself feeling anxious or uneasy? Do you worry about the future, past mistakes, or everyday challenges?</string>
+</resources>
