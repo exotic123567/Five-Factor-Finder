@@ -14,6 +14,7 @@ import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -99,6 +100,12 @@ class ExtroversionFragment : Fragment() {
         dataEntriesExtroversion.reverse()
         labelsExtroversion.reverse()
 
+        val labels = mutableListOf("EXTRAVERSION",
+            "Friendliness",
+            "Gregariousness",
+            "Assertiveness", "Activity Level", "Excitement-Seeking", "Cheerfulness"
+        )
+
         val barDataSetExtroversion = BarDataSet(dataEntriesExtroversion, "Extraversion Traits")
         barDataSetExtroversion.setValueTextColor(color) // Set text color
         barDataSetExtroversion.setColors(color) // Set bar color
@@ -113,7 +120,9 @@ class ExtroversionFragment : Fragment() {
         extrachart.data = barDataExtroversion
         extrachart.invalidate()
         extrachart.setDrawBorders(false)
-        extrachart.xAxis.isEnabled = false
+        val xAxis = extrachart.xAxis
+        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+        //extrachart.xAxis.isEnabled = false
         extrachart.axisLeft.isEnabled = false
         extrachart.axisRight.isEnabled = false
         extrachart.description.isEnabled = false
