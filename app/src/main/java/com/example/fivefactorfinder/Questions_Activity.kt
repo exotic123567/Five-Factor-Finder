@@ -22,6 +22,9 @@ import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import com.example.fivefactorfinder.EvaluatePersonality
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+
 
 data class Question(
     val questionId: Int,
@@ -50,6 +53,7 @@ class Questions_Activity: AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        var personalityoutput = mutableMapOf<String, Int>()
         // Button color theming
         val theme: Resources.Theme = this.theme
         val colorAttr: Int = com.google.android.material.R.attr.colorOnSurface // Attribute for text color on primary background
@@ -57,7 +61,7 @@ class Questions_Activity: AppCompatActivity() {
         theme.resolveAttribute(colorAttr, typedValue, true)
         val color = typedValue.data // This will be the color based on the theme
 
-        // Question Loading from json file
+        // Questions Loading from json file
         val jsonFile = resources.assets.open("questions.json")
         val reader = BufferedReader(InputStreamReader(jsonFile))
         val jsonText = reader.use { it.readText() }
@@ -140,9 +144,17 @@ class Questions_Activity: AppCompatActivity() {
                 val evaluator = EvaluatePersonality()
                 if (agefromuser != null) {
                     if (sexinlowercase != null) {
-                        val personalityoutput = evaluator.evaluate(questionsList, sexinlowercase, agefromuser)
+                        personalityoutput = evaluator.evaluate(questionsList, sexinlowercase, agefromuser)
                     }
                 }
+                val intent2 = Intent(this, PersonalityResults::class.java)
+                intent2.putExtra("name","${nameenteredText}")
+                intent2.putExtra("country","${countryenteredText}")
+                intent2.putExtra("age","${ageenteredText}")
+                intent2.putExtra("sex","${sexenteredText}")
+                val jsonString = Json.encodeToString(personalityoutput)
+                intent2.putExtra("resultjson", jsonString)
+                startActivity(intent2)
             }
 
         }

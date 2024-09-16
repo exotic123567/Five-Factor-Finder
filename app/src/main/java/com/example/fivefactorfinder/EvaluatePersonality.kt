@@ -7,7 +7,7 @@ import kotlin.math.pow
 
 class EvaluatePersonality {
     var numofquestions = 120
-    fun evaluate(questionsList: List<Question>,sex: String, age: Int): String {
+    fun evaluate(questionsList: List<Question>,sex: String, age: Int): MutableMap<String, Int> {
 
         //Create the answer's list
         var qlist = mutableListOf<Int>()
@@ -344,7 +344,6 @@ class EvaluatePersonality {
 
         // Convert the map to JSON
         Log.v("ShowMap","$m")
-        val jsonString = kotlinx.serialization.json.Json.encodeToString(m)
-        return jsonString
+        return m
     }
 }

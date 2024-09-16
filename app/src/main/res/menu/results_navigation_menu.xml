@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/extraversionmenu"
+        android:icon="@drawable/extrovertmenuicon"
+        android:title="Extraversion"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/agreeablenessmenu"
+        android:icon="@drawable/agreeablenessmenuicon"
+        android:title="Agreeableness"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/conscientiousnessmenu"
+        android:icon="@drawable/conscientiousnessmenuicon"
+        android:title="Conscientiousness"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/neuroticismmenu"
+        android:icon="@drawable/neuroticmenuicon"
+        android:title="Neuroticism"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/opennesstoexpmenu"
+        android:icon="@drawable/opennesstoexpmenuicon"
+        android:title="Openness"
+        app:showAsAction="always" />
+</menu>
