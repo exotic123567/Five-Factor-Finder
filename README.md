@@ -185,13 +185,16 @@ Design attributes :
 <a href="" title="best customer experience icons">Best customer experience icons created by Freepik - Flaticon</a>
 
 
-Lotties?:
+Lottie files:
 <a href="https://lottiefiles.com/free-animation/friends-nFO6L1yh5p">https://lottiefiles.com/free-animation/friends-nFO6L1yh5p</a>
 <a href="https://lottiefiles.com/free-animation/business-handshake-oaLxKVAQRf">https://lottiefiles.com/free-animation/business-handshake-oaLxKVAQRf</a>
 <a href="https://lottiefiles.com/free-animation/business-growth-animation-6BxRI1Ko0y">https://lottiefiles.com/free-animation/business-growth-animation-6BxRI1Ko0y</a>
 <a href="https://lottiefiles.com/free-animation/unwell-ZDwMp16rzS">https://lottiefiles.com/free-animation/unwell-ZDwMp16rzS</a>
 <a href="https://lottiefiles.com/free-animation/female-creative-artist-with-ideas-hEobdN7T3C">https://lottiefiles.com/free-animation/female-creative-artist-with-ideas-hEobdN7T3C</a>
 <a href="https://app.lottiefiles.com/animation/e4f92551-94ec-43e5-8a1a-821b74fdb6b5?channel=web&source=public-animation&panel=download">https://app.lottiefiles.com/animation/e4f92551-94ec-43e5-8a1a-821b74fdb6b5?channel=web&source=public-animation&panel=download</a>
+
+# Licenses
+MIT License
 
 
 
