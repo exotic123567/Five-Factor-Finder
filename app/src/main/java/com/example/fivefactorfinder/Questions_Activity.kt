@@ -22,6 +22,10 @@ import com.google.gson.reflect.TypeToken
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import com.example.fivefactorfinder.EvaluatePersonality
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -142,19 +146,30 @@ class Questions_Activity: AppCompatActivity() {
                 }
                 Log.v("Answer${currIndex+1}", "Answer${currIndex+1} value : ${questionsList[currIndex].answerValue}")
                 val evaluator = EvaluatePersonality()
-                if (agefromuser != null) {
-                    if (sexinlowercase != null) {
-                        personalityoutput = evaluator.evaluate(questionsList, sexinlowercase, agefromuser)
+                CoroutineScope(Dispatchers.IO).launch {
+                    val personalityoutput = withContext(Dispatchers.Main) {
+                        if (agefromuser != null) {
+                            if (sexinlowercase != null) {
+                                val result = evaluator.evaluate(questionsList, sexinlowercase, agefromuser)
+                                personalityoutput = result // Assign the return value to personalityoutput
+                            }
+                        }
+                        personalityoutput
+                    }
+
+                    if (personalityoutput != null) {
+                        val intent2 = Intent(this@Questions_Activity, PersonalityResults::class.java)
+                        intent2.putExtra("name", "${nameenteredText}")
+                        intent2.putExtra("country", "${countryenteredText}")
+                        intent2.putExtra("age", "${ageenteredText}")
+                        intent2.putExtra("sex", "${sexenteredText}")
+                        val jsonString = withContext(Dispatchers.Default) {
+                            Json.encodeToString(personalityoutput)
+                        }
+                        intent2.putExtra("resultjson", jsonString)
+                        startActivity(intent2)
                     }
                 }
-                val intent2 = Intent(this, PersonalityResults::class.java)
-                intent2.putExtra("name","${nameenteredText}")
-                intent2.putExtra("country","${countryenteredText}")
-                intent2.putExtra("age","${ageenteredText}")
-                intent2.putExtra("sex","${sexenteredText}")
-                val jsonString = Json.encodeToString(personalityoutput)
-                intent2.putExtra("resultjson", jsonString)
-                startActivity(intent2)
             }
 
         }

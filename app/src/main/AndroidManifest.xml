@@ -25,6 +25,7 @@
         <activity android:name=".HowToActivity" />
         <activity android:name=".Questions_Activity" />
         <activity android:name=".PersonalityResults" />
+        <activity android:name=".FullResultsActivity" />
     </application>
 
 </manifest>

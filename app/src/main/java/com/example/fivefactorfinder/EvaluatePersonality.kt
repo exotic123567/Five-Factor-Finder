@@ -7,7 +7,7 @@ import kotlin.math.pow
 
 class EvaluatePersonality {
     var numofquestions = 120
-    fun evaluate(questionsList: List<Question>,sex: String, age: Int): MutableMap<String, Int> {
+    suspend fun evaluate(questionsList: List<Question>,sex: String, age: Int): MutableMap<String, Int> {
 
         //Create the answer's list
         var qlist = mutableListOf<Int>()
@@ -18,6 +18,7 @@ class EvaluatePersonality {
         for (i in 0 until numofquestions) {
             qlist.add(questionsList[i].answerValue)
         }
+        Log.v("qlistanswers","${qlist}")
 
         //Create Score facet scales
         var ss = mutableListOf<Int>()
@@ -32,6 +33,7 @@ class EvaluatePersonality {
                 k+=30
             }
         }
+        Log.v("ssvalue","${ss}")
 
         //Number each facet set from 1-6
         var nf = mutableListOf<Int>()
@@ -55,12 +57,12 @@ class EvaluatePersonality {
             cf.add(0)
         }
         var j = 0
-        for (i in 0 until 6) {
-            nf[i] = ss[i+j]
-            ef[i] = ss[i + j + 1]
-            of[i] = ss[i + j + 2]
-            af[i] = ss[i + j + 3]
-            cf[i] = ss[i + j + 4]
+        for (i in 1 until 7) {
+            nf[i] = ss[i+j-1]
+            ef[i] = ss[i + j ]
+            of[i] = ss[i + j + 1]
+            af[i] = ss[i + j + 2]
+            cf[i] = ss[i + j + 3]
             j = j + 4
         }
 
@@ -70,7 +72,7 @@ class EvaluatePersonality {
         var e = ss[1] + ss[6]  + ss[11] + ss[16] + ss[21] + ss[26]
         var o = ss[2] + ss[7]  + ss[12] + ss[17] + ss[22] + ss[27]
         var a = ss[3] + ss[8]  + ss[13] + ss[18] + ss[23] + ss[28]
-        var c = ss[4] + ss[9]  + ss[14] + ss[19] + ss[24] + ss[39]
+        var c = ss[4] + ss[9]  + ss[14] + ss[19] + ss[24] + ss[29]
 
         // Standardize scores
         var norm = listOf(
@@ -183,7 +185,7 @@ class EvaluatePersonality {
             scf.add(0.0)
         }
 
-        for (i in 0 until 6) {
+        for (i in 1 until 7) {
             snf[i] = 50 + (10 * (nf[i] - norm[i + 10].toDouble()) / norm[i + 16].toDouble())
             sef[i] = 50 + (10 * (ef[i] - norm[i + 22].toDouble()) / norm[i + 28].toDouble())
             sof[i] = 50 + (10 * (of[i] - norm[i + 34].toDouble()) / norm[i + 40].toDouble())
@@ -226,7 +228,7 @@ class EvaluatePersonality {
         var flevText = MutableList(items) { "low" }
 
         // Mapping for snf to snfp
-        for (i in 0 until 6) {
+        for (i in 1 until 7) {
             flev[i] = snf[i]
             flevText[i] = when {
                 snf[i] < 45 -> "low"
@@ -241,7 +243,7 @@ class EvaluatePersonality {
             }
         }
         // Mapping for sef to sefp
-        for (i in 0 until 6) {
+        for (i in 1 until 7) {
             flev[i + 6] = sef[i]
             flevText[i + 6] = when {
                 sef[i] < 45 -> "low"
@@ -256,7 +258,7 @@ class EvaluatePersonality {
             }
         }
         // Mapping for sof to sofp
-        for (i in 0 until 6) {
+        for (i in 1 until 7) {
             flev[i + 12] = sof[i]
             flevText[i + 12] = when {
                 sof[i] < 45 -> "low"
@@ -271,7 +273,7 @@ class EvaluatePersonality {
             }
         }
         // Mapping for saf to safp
-        for (i in 0 until 6) {
+        for (i in 1 until 7) {
             flev[i + 18] = saf[i]
             flevText[i + 18] = when {
                 saf[i] < 45 -> "low"
@@ -286,7 +288,7 @@ class EvaluatePersonality {
             }
         }
         // Mapping for scf to scfp
-        for (i in 0 until 6) {
+        for (i in 1 until 7) {
             flev[i + 24] = scf[i]
             flevText[i + 24] = when {
                 scf[i] < 45 -> "low"
@@ -310,8 +312,10 @@ class EvaluatePersonality {
         // EXTRAVERSION
         val extraversionLabels = listOf("EXTRAVERSION", "Friendliness", "Gregariousness", "Assertiveness", "Activity Level", "Excitement-Seeking", "Cheerfulness")
         m[extraversionLabels[0]] = sep
+        Log.v("sefp","${sefp}")
         for (i in 1 until extraversionLabels.size) {
             m[extraversionLabels[i]] = sefp[i]
+            Log.v("CheckInsidLoop","${i}th element : ${extraversionLabels[i]}")
         }
 
         // AGREEABLENESS

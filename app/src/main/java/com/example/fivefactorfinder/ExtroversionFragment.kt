@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -23,7 +24,7 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ExtroversionFragment.newInstance] factory method to
+ * Use the [ConscientiousnessFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
 class ExtroversionFragment : Fragment() {
@@ -31,9 +32,9 @@ class ExtroversionFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var personalityMap: MutableMap<String, Int>? = null
-    private lateinit var extrachart: BarChart
+    private lateinit var extrachart: com.github.mikephil.charting.charts.HorizontalBarChart
     private lateinit var homebtn: com.google.android.material.button.MaterialButton
-
+    private lateinit var textView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,10 +54,7 @@ class ExtroversionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        Log.v("Inside OnCreateView", "Inside OnCreateVIew and before returning layout inflater")
-        val view = inflater.inflate(R.layout.fragment_extroversion, container, false)
-        Log.v("ViewHierarchy", view.dumpViewHierarchy())
-        return view
+        return inflater.inflate(R.layout.fragment_extroversion, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,6 +63,7 @@ class ExtroversionFragment : Fragment() {
 
         extrachart = view.findViewById(R.id.extraversionchart)
         homebtn = view.findViewById(R.id.hoemebuttun)
+        textView = view.findViewById(R.id.extraversionscores)
 
         // Assume personalityMap is passed or initialized in some way
 
@@ -76,6 +75,12 @@ class ExtroversionFragment : Fragment() {
         val typedValue = TypedValue()
         theme.resolveAttribute(colorAttr, typedValue, true)
         val color = typedValue.data
+
+        homebtn.backgroundTintList = ColorStateList.valueOf(color)
+        homebtn.setOnClickListener {
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            startActivity(intent)
+        }
 
         personalityMap?.get("EXTRAVERSION")
             ?.let { personalityResultsExtroversion.put("EXTRAVERSION", it) }
@@ -92,10 +97,14 @@ class ExtroversionFragment : Fragment() {
         personalityMap?.get("Cheerfulness")
             ?.let { personalityResultsExtroversion.put("Cheerfulness", it) }
 
+        Log.v("personalityextroversionmap","${personalityResultsExtroversion}")
+
         for ((label, value) in personalityResultsExtroversion) {
             dataEntriesExtroversion.add(BarEntry(dataEntriesExtroversion.size.toFloat(), value.toFloat()))
             labelsExtroversion.add(label)
         }
+
+        Log.v("dataentriesextriv","${dataEntriesExtroversion}")
 
         dataEntriesExtroversion.reverse()
         labelsExtroversion.reverse()
@@ -106,17 +115,25 @@ class ExtroversionFragment : Fragment() {
             "Assertiveness", "Activity Level", "Excitement-Seeking", "Cheerfulness"
         )
 
-        val barDataSetExtroversion = BarDataSet(dataEntriesExtroversion, "Extraversion Traits")
+
+        val stringBuilder = StringBuilder()
+        stringBuilder.append("Your Extraversion Traits:\n")
+        for ((trait, value) in personalityResultsExtroversion) {
+            stringBuilder.append("$trait: $value\n")
+        }
+
+        val personalityString = stringBuilder.toString()
+
+        textView.text = personalityString
+
+        val barDataSetExtroversion = BarDataSet(dataEntriesExtroversion, "Extroversion Traits")
         barDataSetExtroversion.setValueTextColor(color) // Set text color
         barDataSetExtroversion.setColors(color) // Set bar color
 
-        homebtn.backgroundTintList = ColorStateList.valueOf(color)
-        homebtn.setOnClickListener {
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            startActivity(intent)
-        }
+        Log.v("baradatasetext","${barDataSetExtroversion}")
 
         val barDataExtroversion = BarData(barDataSetExtroversion)
+        Log.v("baradataext","${barDataExtroversion}")
         extrachart.data = barDataExtroversion
         extrachart.invalidate()
         extrachart.setDrawBorders(false)
@@ -136,7 +153,7 @@ class ExtroversionFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ExtroversionFragment.
+         * @return A new instance of fragment ConscientiousnessFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
@@ -148,30 +165,4 @@ class ExtroversionFragment : Fragment() {
                 }
             }
     }
-
-    fun View.dumpViewHierarchy(): String {
-        val stringBuilder = StringBuilder()
-        dumpView(this, stringBuilder, 0)
-        return stringBuilder.toString()
-    }
-
-    private fun dumpView(view: View, stringBuilder: StringBuilder, level: Int) {
-        for (i in 0 until level) {
-            stringBuilder.append("  ")
-        }
-        stringBuilder.append(view.javaClass.simpleName)
-        if (view is ViewGroup) {
-            stringBuilder.append(" {")
-            stringBuilder.append("\n")
-            for (i in 0 until view.childCount) {
-                dumpView(view.getChildAt(i), stringBuilder, level + 1)
-            }
-            for (i in 0 until level) {
-                stringBuilder.append("  ")
-            }
-            stringBuilder.append("}")
-        }
-        stringBuilder.append("\n")
-    }
-
 }

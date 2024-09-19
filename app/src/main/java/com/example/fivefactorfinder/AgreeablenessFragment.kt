@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
@@ -31,8 +32,9 @@ class AgreeablenessFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var personalityMap: MutableMap<String, Int>? = null
-    private lateinit var extrachart: BarChart
+    private lateinit var extrachart: com.github.mikephil.charting.charts.HorizontalBarChart
     private lateinit var homebtn: com.google.android.material.button.MaterialButton
+    private lateinit var textView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +44,7 @@ class AgreeablenessFragment : Fragment() {
             if (serializableMap != null) {
                 personalityMap = serializableMap as MutableMap<String, Int>
                 Log.v("mapreceived", "Personality map of Extroversion received in fragment")
-                Log.v("mapextriv","Map of extroversion recieved is ${personalityMap}")
+                Log.v("mapagreeable","Map of agreeable recieved is ${personalityMap}")
             }
         }
     }
@@ -61,6 +63,7 @@ class AgreeablenessFragment : Fragment() {
 
         extrachart = view.findViewById(R.id.agreeablenesschart)
         homebtn = view.findViewById(R.id.hoemebuttun)
+        textView = view.findViewById(R.id.agreescores)
 
         // Assume personalityMap is passed or initialized in some way
 
@@ -99,6 +102,16 @@ class AgreeablenessFragment : Fragment() {
         val labels = mutableListOf("AGREEABLENESS",
             "Trust", "Morality", "Altruism", "Cooperation", "Modesty", "Sympathy"
         )
+
+        val stringBuilder = StringBuilder()
+        stringBuilder.append("Your Agreeableness Traits:\n")
+        for ((trait, value) in personalityResultsExtroversion) {
+            stringBuilder.append("$trait: $value\n")
+        }
+
+        val personalityString = stringBuilder.toString()
+
+        textView.text = personalityString
 
         val barDataSetExtroversion = BarDataSet(dataEntriesExtroversion, "Agreeableness Traits")
         barDataSetExtroversion.setValueTextColor(color) // Set text color

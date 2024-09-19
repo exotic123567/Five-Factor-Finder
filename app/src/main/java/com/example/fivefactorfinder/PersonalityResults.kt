@@ -71,42 +71,6 @@ class PersonalityResults: AppCompatActivity() {
         }
 
         //loadFragment(ExtroversionFragment())
-
-
-    /*extrachart = findViewById(R.id.extraversionchart)
-        val dataEntriesExtroversion = mutableListOf<BarEntry>()
-        val extraversionLabels = arrayOf<String>("EXTROVERSION",
-            "Friendliness",
-            "Gregariousness",
-            "Assertiveness",
-            "Activity Level",
-            "Excitement-Seeking",
-            "Cheerfulness"
-        )
-        val labelsExtroversion = mutableListOf<String>()
-        var personalityResultsExtroversion = mutableMapOf<String, Int>()
-        personalityoutputmap.get("EXTRAVERSION")?.let { personalityResultsExtroversion.put("EXTRAVERSION", it) }
-        personalityoutputmap.get("Friendliness")?.let { personalityResultsExtroversion.put("Friendliness", it) }
-        personalityoutputmap.get("Gregariousness")?.let { personalityResultsExtroversion.put("Gregariousness", it) }
-        personalityoutputmap.get("Assertiveness")?.let { personalityResultsExtroversion.put("Assertiveness", it) }
-        personalityoutputmap.get("Activity Level")?.let { personalityResultsExtroversion.put("Activity Level", it) }
-        personalityoutputmap.get("Excitement-Seeking")?.let { personalityResultsExtroversion.put("Excitement-Seeking", it) }
-        personalityoutputmap.get("Cheerfulness")?.let { personalityResultsExtroversion.put("Cheerfulness", it) }
-
-        for ((label, value) in personalityResultsExtroversion) {
-            dataEntriesExtroversion.add(BarEntry(dataEntriesExtroversion.size.toFloat(), value.toFloat()))
-            labelsExtroversion.add(label)
-        }
-        dataEntriesExtroversion.reverse()
-        labelsExtroversion.reverse()
-        val barDataSetExtroversion = BarDataSet(dataEntriesExtroversion, "Extraversion Traits")
-        barDataSetExtroversion.setValueTextColor(color)
-        barDataSetExtroversion.setColors(color)
-        val barDataExtroversion = BarData(barDataSetExtroversion)
-        extrachart.data = barDataExtroversion
-        extrachart.invalidate()*/
-
-
     }
 
     private val mOnNavigationItemSelectedListener =
